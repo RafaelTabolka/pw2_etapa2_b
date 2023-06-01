@@ -1,19 +1,33 @@
-    const app = require('express')
-    const exphbs = require ('express-handlebars')
-    const session = require ('express-session')
-    const FileStore = require ('session-file-store')
-    const flash = require ('express-flash')
+const express = require('express')
+const exphbs = require('express-handlebars')
+const session = require('express-session')
+const FileStore = require('session-file-store')
+const flash = require('express-flash')
 
-    const app = express()
+const app = express()
 
-    app.engine ('handlebars', exphbs ())
-    app.set ('view', 'handlebars')
+//#region Conexão com serviço de dados
 
-    app.Request(
-        express.urlecoded({
-            
-            extended: true
-        })
-    )
+const conn = require('./db/conn')
+const Thought = require('./models/Thought')
+const User = require('./models/User')
 
-    app.Request(express.json())
+//#endregion
+
+app.engine('handlebars', exphbs())
+app.set('view', 'handlebars')
+
+app.Request(
+    express.urlecoded({
+
+        extended: true
+    })
+)
+
+app.use(express.json())
+
+conn.sync().then(() => {
+    app.listen(3000)
+}).catch((error) => {
+    console.error(error);
+})
