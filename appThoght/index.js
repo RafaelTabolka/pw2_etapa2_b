@@ -17,8 +17,8 @@ const User = require('./models/User')
 app.engine('handlebars', exphbs())
 app.set('view', 'handlebars')
 
-app.Request(
-    express.urlecoded({
+app.use(
+    express.urlencoded({
 
         extended: true
     })

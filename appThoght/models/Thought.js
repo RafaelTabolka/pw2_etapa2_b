@@ -11,5 +11,5 @@ const Thought = db.define('THOUGHTS', {
     }
 })
 
-Thoughts.belongsTo(User)
+Thought.belongsTo(User)
 User.hasMany(Thought)
